@@ -56,9 +56,9 @@ int main(void)
 	FIO	
 	node *root=NULL;
 	root=insert(50,root);insert(30, root);insert(20, root);//                 50
-    insert(40, root);insert(60, root);  insert(70, root); //				/	 \
+    insert(40, root);insert(60, root);  insert(70, root); //				/	 \;
     cout<<"Enter kth element ";int k;					 //				   30	  60
-    cin>>k;												//				   /  \     \
+    cin>>k;												//				   /  \     \;
     map<int,int> mp;									//				 20   40     70
 	augment(root,mp);									//
     cout<<"\n"<<find(root,k,mp);
