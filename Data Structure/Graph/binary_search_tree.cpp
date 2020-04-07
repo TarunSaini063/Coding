@@ -50,6 +50,30 @@ void postorder(node *root)
 		cout<<root->key<<" ";
 	}
 }
+
+ void itr_postorder(node *A)
+ {
+     if(A==NULL) return;
+     stack<node*> st;
+    while(true)
+    {
+        while(A!=NULL)
+        {
+            st.push(A);
+            st.push(A);
+            A=A->left;
+        }
+        if(st.empty()) return;
+        A=st.top();
+        st.pop();
+        if(!st.empty()&&st.top()==A) A=A->right;
+        else
+        {
+            cout<<A->key<<" ";
+            A=NULL;
+        }
+    }
+ }
 node* insert(int val,node *root)
 {
 	if(root==NULL) return newNode(val);
@@ -99,6 +123,6 @@ int main(void)
     del(root,20);
     inorder(root);cout<<"\n";
     preorder(root);cout<<"\n";
-    postorder(root);cout<<"\n";
+    itr_postorder(root);cout<<"\n";
 	return 0;
 }
