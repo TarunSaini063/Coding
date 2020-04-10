@@ -1,5 +1,3 @@
-//					SEGMENTATION ERROR
-
 #include <bits/stdc++.h>
 using namespace std;
 #define ld double
@@ -20,27 +18,36 @@ int main(void)
 	cin>>t;
 	while(t--)
 	{
-		int x,y;
-		cin>>x>>y;
-		vector<int> arr1(x),arr2(y);
-		for(int i=0;i<x;i++) cin>>arr1[i];
-		for(int i=0;i<y;i++) cin>>arr2[i];
-		while(true)
+		string s;
+		cin>>s;
+		int n=2*(int)s.size()+1;
+		int arr[n];
+		arr[0]=0;
+		arr[1]=1;
+		int r=2;
+		int c=1;
+		for(int i=2;i<n;i++)
 		{
-			int lt=arr1[x-1],j=y-1,i=x-2;
-			while(arr2[j]>lt&&j>=0) j--;
-			if(j==-1) break;
-			while(arr1[i]>arr2[j]&&i>=0)
+			arr[i]=0;
+			if(i<r)
 			{
-				arr1[i+1]=arr1[i];
-				i--;
-			} 
-			arr1[i+1]=arr2[j];
-			arr2[j]=lt;
+				int mr=2*c-i;
+				arr[i]=min(arr[mr],r-i);
+			}
+			while(i-arr[i]-1>=0&&i+arr[i]+1<=n&&((i+arr[i]+1)%2==0||s[(i-arr[i]-1)/2]==s[(i+arr[i]+1)/2])) arr[i]++;
+			if(i+arr[i]>r)
+			{
+				r=i+arr[i];
+				c=i;
+			}
 		}
-		for(auto j: arr1) cout<<j<<" ";
-		for(auto j :arr2) cout<<j<<" ";
-		cout<<"\n";
+		int mid=0,j;
+		for(int i=1;i<n;i++)
+		{
+			if(arr[mid]<arr[i]) mid=i;
+		}
+		j=mid/2-arr[mid]/2;
+		cout<<s.substr(j,arr[mid])<<"\n";
 	}
 	return 0;
 }

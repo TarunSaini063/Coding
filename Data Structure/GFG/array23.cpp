@@ -1,5 +1,3 @@
-//					SEGMENTATION ERROR
-
 #include <bits/stdc++.h>
 using namespace std;
 #define ld double
@@ -13,6 +11,12 @@ using namespace std;
 #define all(x) x.begin(),x.end()
 ll power(ll a, ll b){ll res=1;a=a%mod; while(b){if(b&1)res=(res*a)%mod; a=(a*a)%mod;b/=2;}return res;}
 ll invmod(ll a){return power(a,mod-2);}
+bool cmp(const string &a,const string &b)
+{
+	string s=a+b;
+	string s1=b+a;
+	return s>=s1;
+}
 int main(void)
 {
 	FIO	
@@ -20,27 +24,14 @@ int main(void)
 	cin>>t;
 	while(t--)
 	{
-		int x,y;
-		cin>>x>>y;
-		vector<int> arr1(x),arr2(y);
-		for(int i=0;i<x;i++) cin>>arr1[i];
-		for(int i=0;i<y;i++) cin>>arr2[i];
-		while(true)
-		{
-			int lt=arr1[x-1],j=y-1,i=x-2;
-			while(arr2[j]>lt&&j>=0) j--;
-			if(j==-1) break;
-			while(arr1[i]>arr2[j]&&i>=0)
-			{
-				arr1[i+1]=arr1[i];
-				i--;
-			} 
-			arr1[i+1]=arr2[j];
-			arr2[j]=lt;
-		}
-		for(auto j: arr1) cout<<j<<" ";
-		for(auto j :arr2) cout<<j<<" ";
-		cout<<"\n";
+		int n;
+		cin>>n;
+		vector<string> arr(n);
+		for(int i=0;i<n;i++) cin>>arr[i];
+		sort(all(arr),cmp);
+		string s="";
+		for(auto j : arr) s+=j;
+		cout<<s<<"\n";
 	}
 	return 0;
 }

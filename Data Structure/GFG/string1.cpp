@@ -1,5 +1,3 @@
-//					SEGMENTATION ERROR
-
 #include <bits/stdc++.h>
 using namespace std;
 #define ld double
@@ -20,26 +18,16 @@ int main(void)
 	cin>>t;
 	while(t--)
 	{
-		int x,y;
-		cin>>x>>y;
-		vector<int> arr1(x),arr2(y);
-		for(int i=0;i<x;i++) cin>>arr1[i];
-		for(int i=0;i<y;i++) cin>>arr2[i];
-		while(true)
+		string s,t;
+		cin>>s;
+		stringstream x(s);
+		vector<string> ans;
+		while(getline(x,t,'.')) ans.pb(t);
+		for(int i=(int)ans.size()-1;i>=0;i--)
 		{
-			int lt=arr1[x-1],j=y-1,i=x-2;
-			while(arr2[j]>lt&&j>=0) j--;
-			if(j==-1) break;
-			while(arr1[i]>arr2[j]&&i>=0)
-			{
-				arr1[i+1]=arr1[i];
-				i--;
-			} 
-			arr1[i+1]=arr2[j];
-			arr2[j]=lt;
+			cout<<ans[i];
+			if(i!=0) cout<<".";
 		}
-		for(auto j: arr1) cout<<j<<" ";
-		for(auto j :arr2) cout<<j<<" ";
 		cout<<"\n";
 	}
 	return 0;

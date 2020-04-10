@@ -1,5 +1,3 @@
-//					SEGMENTATION ERROR
-
 #include <bits/stdc++.h>
 using namespace std;
 #define ld double
@@ -19,27 +17,29 @@ int main(void)
 	int t;
 	cin>>t;
 	while(t--)
-	{
-		int x,y;
-		cin>>x>>y;
-		vector<int> arr1(x),arr2(y);
-		for(int i=0;i<x;i++) cin>>arr1[i];
-		for(int i=0;i<y;i++) cin>>arr2[i];
-		while(true)
+	{	
+		int n,m;
+		cin>>n>>m;
+		int arr[n][m];
+		for(int i=0;i<n;i++)
+			for(int j=0;j<m;j++)
+				cin>>arr[i][j];
+		int r1,r2,c1,c2;
+		r1=c1=0;
+		r2=n-1;c2=m-1;
+		while(r1<=r2&&c1<=c2)
 		{
-			int lt=arr1[x-1],j=y-1,i=x-2;
-			while(arr2[j]>lt&&j>=0) j--;
-			if(j==-1) break;
-			while(arr1[i]>arr2[j]&&i>=0)
-			{
-				arr1[i+1]=arr1[i];
-				i--;
-			} 
-			arr1[i+1]=arr2[j];
-			arr2[j]=lt;
+			for(int i=c1;i<=c2;i++) cout<<arr[r1][i]<<" ";
+			r1++;
+			for(int i=r1;i<=r2;i++) cout<<arr[i][c2]<<" ";
+			c2--;
+			if(r1<=r2)
+			for(int i=c2;i>=c1;i--) cout<<arr[r2][i]<<" ";
+			r2--;
+			if(c1<=c2)
+			for(int i=r2;i>=r1;i--) cout<<arr[i][c1]<<" ";
+			c1++;
 		}
-		for(auto j: arr1) cout<<j<<" ";
-		for(auto j :arr2) cout<<j<<" ";
 		cout<<"\n";
 	}
 	return 0;
