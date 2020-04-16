@@ -11,23 +11,6 @@ using namespace std;
 #define all(x) x.begin(),x.end()
 ll power(ll a, ll b){ll res=1;a=a%mod; while(b){if(b&1)res=(res*a)%mod; a=(a*a)%mod;b/=2;}return res;}
 ll invmod(ll a){return power(a,mod-2);}
-int lcs(string a,string b)
-{
-	int n=a.size();
-	int m=b.size();
-	int dp[n+1][m+1];
-	for(int i=0;i<=n;i++)
-	{
-		for(int j=0;j<=m;j++)
-		{
-			if(i==0||j==0) dp[i][j]=0;
-			else if(a[i-1]==b[j-1]) dp[i][j]=1+dp[i-1][j-1];
-			else dp[i][j]=max(dp[i][j-1],dp[i-1][j]);
-		}
-	}
-	return dp[n][m];
-}
-
 int main(void)
 {
 	FIO	
@@ -35,12 +18,36 @@ int main(void)
 	cin>>t;
 	while(t--)
 	{
-		string s,r;
+		string s;
 		cin>>s;
-		r=s;
-		reverse(all(r));
-		int tp=lcs(r,s);
-		cout<<s.size()-tp<<"\n";
+		int arr[26];
+		for(int i=0;i<26;i++) arr[i]=-1;
+		int ans=0,curr=0;
+		for(int i=0;i<(int)s.size();i++)
+		{
+			if(arr[s[i]-'a']==-1)
+			{
+				arr[s[i]-'a']=i;
+				curr++;
+				ans=max(ans,curr);
+			}
+			else
+			{
+				int tp=arr[s[i]-'a'];
+				for(int i=0;i<26;i++)
+				{
+					if(arr[i]!=-1&&arr[i]<=tp)
+					{
+						arr[i]=-1;
+						curr--;
+					}
+				}
+				arr[s[i]-'a']=i;
+				curr++;
+			}
+			// cout<<curr<<" ";
+		}
+		cout<<ans<<"\n";
 	}
 	return 0;
 }
