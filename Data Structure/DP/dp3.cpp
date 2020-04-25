@@ -11,6 +11,19 @@ using namespace std;
 #define all(x) x.begin(),x.end()
 ll power(ll a, ll b){ll res=1;a=a%mod; while(b){if(b&1)res=(res*a)%mod; a=(a*a)%mod;b/=2;}return res;}
 ll invmod(ll a){return power(a,mod-2);}
+bool partition(vector<int> a,int sum,int t){
+    if(sum==0 ){
+        return true;
+    }
+    if(sum!=0 && t==0){
+        return false;
+    }
+    if(a[t-1]>sum){
+    return  partition(a,sum,t-1) ;
+    }
+  return partition(a,sum-a[t-1],t-1)||partition(a,sum,t-1);
+    
+}
 int main(void)
 {
 	FIO	
@@ -18,22 +31,18 @@ int main(void)
 	cin>>t;
 	while(t--)
 	{
-		int n1,n2;
-		cin>>n1>>n2;
-		string s1,s2;
-		cin>>s1>>s2;
-		int dp[n1+1][n2+1];
-		memset(dp,0,sizeof(dp));
-		for(int i=0;i<=n1;i++)
-		{
-			for(int j=0;j<=n2;j++)
-			{
-				if(i==0||j==0)dp[i][j]=0;
-				else if(s1[i-1]==s2[j-1]) dp[i][j]=1+dp[i-1][j-1];
-				else dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
-			}
+		int n;
+		cin>>n;
+		ll sm=0;
+		vector<int> arr(n);
+		for(auto &j : arr) cin>>j,sm+=j;
+		if(sm%2==1) {
+			cout<<"NO"<<"\n";
+			continue;
 		}
-		cout<<dp[n1][n2]<<"\n";
+		sm/=2;
+		if(partition(arr,sm,n)==true) cout<<"YES"<<"\n";
+		else cout<<"NO"<<"\n";
 	}
 	return 0;
 }

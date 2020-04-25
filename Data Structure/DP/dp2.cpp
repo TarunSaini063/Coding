@@ -18,22 +18,29 @@ int main(void)
 	cin>>t;
 	while(t--)
 	{
-		int n1,n2;
-		cin>>n1>>n2;
-		string s1,s2;
-		cin>>s1>>s2;
-		int dp[n1+1][n2+1];
-		memset(dp,0,sizeof(dp));
-		for(int i=0;i<=n1;i++)
+		int n;
+		cin>>n;
+		vector<int> arr(n);
+		for(auto &j : arr) cin>>j;
+		vector<int> jp(n,INT_MAX);
+		jp[0]=0;
+		int fl=1;
+		for(int i=0;i<n;i++)
 		{
-			for(int j=0;j<=n2;j++)
+			int j=i;
+			if(jp[i]==INT_MAX)
 			{
-				if(i==0||j==0)dp[i][j]=0;
-				else if(s1[i-1]==s2[j-1]) dp[i][j]=1+dp[i-1][j-1];
-				else dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+			    cout<<"-1"<<"\n";
+			    fl=0;
+			    break;
 			}
-		}
-		cout<<dp[n1][n2]<<"\n";
+			while(j<n-1&&j<i+arr[i])
+			{
+				jp[j+1]=min(jp[j+1],jp[i]+1);
+				j++;
+			}
+		} 
+		if(fl==1)cout<<jp[n-1]<<"\n";
 	}
 	return 0;
 }
