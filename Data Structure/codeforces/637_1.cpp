@@ -11,6 +11,11 @@ using namespace std;
 #define all(x) x.begin(),x.end()
 ll power(ll a, ll b){ll res=1;a=a%mod; while(b){if(b&1)res=(res*a)%mod; a=(a*a)%mod;b/=2;}return res;}
 ll invmod(ll a){return power(a,mod-2);}
+bool lap(ll a,ll b,ll c,ll d)
+{
+	if(a>d||b<c) return false;
+	return true;
+}
 int main(void)
 {
 	FIO	
@@ -18,27 +23,10 @@ int main(void)
 	cin>>t;
 	while(t--)
 	{
-		int n;
-		cin>>n;
-		if((n/2)%2!=0) cout<<"NO"<<"\n";
-		else
-		{
-			vector<ll> odd,even;
-			ll sm=0;
-			cout<<"YES"<<"\n";
-			for(int i=1;i<=n/2;i++)
-			{
-				cout<<2*i<<" ";
-				sm+=2*i;
-				
-			}
-			for(int i=1;i<=n/2-1;i++)
-			{
-				cout<<2*i-1<<" ";
-				sm-=(2*i-1);
-			}
-			cout<<sm<<"\n";
-		}
+		ll n,a,b,c,d;
+		cin>>n>>a>>b>>c>>d;
+		if(lap(n*(a-b),n*(a+b),c-d,c+d)) cout<<"Yes"<<"\n";
+		else cout<<"No"<<"\n";
 	}
 	return 0;
 }

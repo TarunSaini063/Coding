@@ -18,27 +18,26 @@ int main(void)
 	cin>>t;
 	while(t--)
 	{
-		int n;
-		cin>>n;
-		if((n/2)%2!=0) cout<<"NO"<<"\n";
-		else
+		int n,k;
+		cin>>n>>k;
+		vector<int> arr(n),cnt(n,0),ans(n+1,0);
+		for(int i=0;i<n;i++) cin>>arr[i];
+		for(int i=1;i<n-1;i++)
 		{
-			vector<ll> odd,even;
-			ll sm=0;
-			cout<<"YES"<<"\n";
-			for(int i=1;i<=n/2;i++)
-			{
-				cout<<2*i<<" ";
-				sm+=2*i;
-				
-			}
-			for(int i=1;i<=n/2-1;i++)
-			{
-				cout<<2*i-1<<" ";
-				sm-=(2*i-1);
-			}
-			cout<<sm<<"\n";
+			if(arr[i]>arr[i-1]&&arr[i]>arr[i+1]) cnt[i]=1;
 		}
+		for(int i=1;i<=n;i++) ans[i]=ans[i-1]+cnt[i-1];
+		int mx=0,i1=1;
+		for(int i=0;i+k<=n;i++)
+		 {
+		 	int tp=ans[i+k-1]-ans[i+1];
+		 	if(mx<tp)
+			{
+				mx=tp;
+				i1=i+1;
+			}
+		 }
+		cout<<mx+1<<" "<<i1<<"\n";
 	}
 	return 0;
 }

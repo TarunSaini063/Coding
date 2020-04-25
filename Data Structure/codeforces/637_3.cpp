@@ -20,25 +20,32 @@ int main(void)
 	{
 		int n;
 		cin>>n;
-		if((n/2)%2!=0) cout<<"NO"<<"\n";
-		else
+		int arr[n];
+		vector<pair<int,int>> v;
+		for(int i=0;i<n;i++) {cin>>arr[i]; v.pb(mk(arr[i],i+1));}
+		sort(all(v));
+		int fl=0;
+		int pr=-1;
+		for(int i=0;i<n-1;i++)
 		{
-			vector<ll> odd,even;
-			ll sm=0;
-			cout<<"YES"<<"\n";
-			for(int i=1;i<=n/2;i++)
+			if(pr==-1){if(v[i].ss<n) pr=v[i].ss+1;}
+			else
 			{
-				cout<<2*i<<" ";
-				sm+=2*i;
-				
+				if(pr!=v[i].ss)
+				{
+					fl=1;
+					break;
+				}
+				else
+				{
+					if(v[i].ss<n) pr=v[i].ss+1;
+					else pr=-1;
+				}
 			}
-			for(int i=1;i<=n/2-1;i++)
-			{
-				cout<<2*i-1<<" ";
-				sm-=(2*i-1);
-			}
-			cout<<sm<<"\n";
-		}
+		} 
+		if(fl==1) cout<<"No"<<"\n";
+		else cout<<"Yes"<<"\n";
+
 	}
 	return 0;
 }
