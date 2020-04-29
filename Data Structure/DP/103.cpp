@@ -9,22 +9,22 @@ using namespace std;
 #define ss second
 #define FIO ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 #define all(x) x.begin(),x.end()
-ll power(ll a, ll b){ll res=1;a=a%mod; while(b){if(b&1)res=(res*a)%mod; a=(a*a)%mod;b/=2;}return res;}
-ll invmod(ll a){return power(a,mod-2);}
+ll power(ll a, ll b) {ll res = 1; a = a % mod; while (b) {if (b & 1)res = (res * a) % mod; a = (a * a) % mod; b /= 2;} return res;}
+ll invmod(ll a) {return power(a, mod - 2);}
 int main(void)
 {
-	FIO	
+	FIO
 	int n;
 	float p;
-	cin>>n>>p;
-	float dp[n+1];
-	dp[0]=dp[1]=0;
-	dp[2]=p;
-	dp[3]=1-p;
-	for(int i=4;i<=n;i++)
+	cin >> n >> p;
+	float dp[n + 1];
+	dp[0] = dp[1] = 0;
+	dp[2] = p;
+	dp[3] = 1 - p;
+	for (int i = 4; i <= n; i++)
 	{
-		dp[i]=dp[i-2]*p+(1-p)*dp[i-3];
+		dp[i] = dp[i - 2] * p + (1 - p) * dp[i - 3];
 	}
-	cout<<dp[n]<<"\n";
+	cout << dp[n] << "\n";
 	return 0;
 }
