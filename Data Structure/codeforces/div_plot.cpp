@@ -20,11 +20,12 @@ ld A1(ld x1)
 }
 ld A3(ld area1)
 {
-	ld  x3 = area1 / bc - 1.0;
-	ld area3 = bc * (x3 + 1);
+	ld  x3 = 2 * area1 / bc - (ae - cd);
+	x3 /= 2.0;
+	ld area3 = bc * (2 * x3 + ae - cd ) / 2.0;
 	return x3;
 }
-int main(void)
+int main(void
 {
 #ifndef ONLINE_JUDGE
 	freopen("input1.txt", "r", stdin);
@@ -37,6 +38,7 @@ int main(void)
 	cin >> da;
 	ld area = bc * cd + (ae - cd) * bc / 2.0 + (da - bc) * cd / 2.0;
 	cout << "Total Area :" << area  << "\n\n" << flush;
+	ld areaeq = area / 3.0;
 	cout << fixed << setprecision(10) << "Area / 3: " << area / 3.0 << "\n\n" << flush;
 	ld x1, area1, x3;
 	ld l = 0, h = cd;
@@ -52,8 +54,10 @@ int main(void)
 	ld area3 = area1;
 	ld area2 = area - area1 - area3;
 	ld x2 = cd - x1 - x3;
-	cout << fixed << setprecision(10) << "plot 1\n|---" << x1 << "---|" << "\nArea: " << area1 << "\nError: " << areaeq - area1 << "\n" << flush;
-	cout << fixed << setprecision(10) << "\n\nplot 2\n|---" << x2 << "---|"  << "\nArea: " << area2 << "\nError: " << areaeq - area2 << "\n" << flush;
-	cout << fixed << setprecision(10) << "\n\nplot 3\n|---" << x3 << "---|" << "\nArea: " << area3 << "\nError: " << areaeq - area3 << "\n" << flush;
+	ld y1 = 2 * area1 / x1 - da;
+	ld y3 = x3 * (ae - bc) / cd + bc;
+	cout << fixed << setprecision(10) << "plot 1\nx1= " << x1 << " y1= " << y1 << "\n" << "\nArea: " << area1 << "\nError: " << areaeq - area1 << "\n" << flush;
+	cout << fixed << setprecision(10) << "\n\nplot 2\nx2= " << x2 << " y2= " << y3 << "\nArea: " << area2 << "\nError: " << areaeq - area2 << "\n" << flush;
+	cout << fixed << setprecision(10) << "\n\nplot 3\nx3= " << x3 << " y3= " << y3 << " (" << ae - cd + x3 << ")" << "---|" << "\nArea: " << area3 << "\nError: " << areaeq - area3 << "\n" << flush;
 	return 0;
 }
