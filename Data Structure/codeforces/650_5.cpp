@@ -14,24 +14,27 @@ ll invmod(ll a) {return power(a, mod - 2);}
 int main(void)
 {
 	FIO
-	int n;
-	cin >> n;
-	int dp[n][10];
-	memset(dp, 0, sizeof(dp));
-	for (int i = 0; i < n; i++)
+	int t;
+	cin >> t;
+	while (t--)
 	{
-		for (int j = 0; j < 10; j++)
+		int n, k, freq[26] = {0};
+		cin >> n >> k;
+		string s;
+		cin >> s;
+		for (auto i : s) freq[i - 'a']++;
+		for (int len = n; len >= 1; len--)
 		{
-			if (i == 0 || j == 0)
+			int amt = len / __gcd(len, k); // eek rotation mai use hona vala count
+			int tot = 0;
+			for (auto i : freq) tot += (i / amt) * amt; // total char in making i/amt round
+			if (tot >= len)
 			{
-				dp[i][j] = j + 1;
-			}
-			else
-			{
-				dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
+				cout << len << '\n';
+				break;
 			}
 		}
+
 	}
-	cout << dp[n - 1][9] << "\n";
 	return 0;
 }

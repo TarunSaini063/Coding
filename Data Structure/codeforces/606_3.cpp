@@ -14,24 +14,24 @@ ll invmod(ll a) {return power(a, mod - 2);}
 int main(void)
 {
 	FIO
-	int n;
-	cin >> n;
-	int dp[n][10];
-	memset(dp, 0, sizeof(dp));
-	for (int i = 0; i < n; i++)
+	int t;
+	cin >> t;
+	while (t--)
 	{
-		for (int j = 0; j < 10; j++)
+		string s;
+		cin >> s;
+		vector<int> ans;
+		for (string t : {"twone", "one", "two"})
 		{
-			if (i == 0 || j == 0)
+			for (auto pos = 0; (pos = s.find(t, pos)) != string::npos;)
 			{
-				dp[i][j] = j + 1;
-			}
-			else
-			{
-				dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
+				s[pos + t.size() / 2] = '#';
+				ans.push_back(pos + t.size() / 2);
 			}
 		}
+		cout << ans.size() << "\n";
+		for (auto i : ans) cout << i + 1 << " ";
+		cout << "\n";
 	}
-	cout << dp[n - 1][9] << "\n";
 	return 0;
 }

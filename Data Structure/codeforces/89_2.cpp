@@ -11,27 +11,41 @@ using namespace std;
 #define all(x) x.begin(),x.end()
 ll power(ll a, ll b) {ll res = 1; a = a % mod; while (b) {if (b & 1)res = (res * a) % mod; a = (a * a) % mod; b /= 2;} return res;}
 ll invmod(ll a) {return power(a, mod - 2);}
+bool ov(int i, int j, int x, int y)
+{
+	if (i > y || j < x) return false;
+	return true;
+}
 int main(void)
 {
 	FIO
-	int n;
-	cin >> n;
-	int dp[n][10];
-	memset(dp, 0, sizeof(dp));
-	for (int i = 0; i < n; i++)
+	int t;
+	cin >> t;
+	while (t--)
 	{
-		for (int j = 0; j < 10; j++)
+		int n, m, x, a, b, u, v;
+		cin >> n >> x >> m;
+		u = n + 1;
+		v = -1;
+		while (m--)
 		{
-			if (i == 0 || j == 0)
+			cin >> a >> b;
+			if (v != -1)
 			{
-				dp[i][j] = j + 1;
+				if (ov(a, b, u, v))
+				{
+					u = min(u, a);
+					v = max(v, b);
+				}
 			}
-			else
+			else if (x >= a && x <= b)
 			{
-				dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
+				u = a;
+				v = b;
 			}
 		}
+		if (v != -1) cout << v - u + 1 << '\n';
+		else cout << 1 << '\n';
 	}
-	cout << dp[n - 1][9] << "\n";
 	return 0;
 }

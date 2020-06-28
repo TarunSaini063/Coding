@@ -16,22 +16,27 @@ int main(void)
 	FIO
 	int n;
 	cin >> n;
-	int dp[n][10];
-	memset(dp, 0, sizeof(dp));
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < 10; j++)
+	ll x, bits[20] = {0}, ans = 0;
+	for (int i = 0; i < n; i++) {
+		cin >> x;
+		for (int j = 0; j < 20; j++)
 		{
-			if (i == 0 || j == 0)
-			{
-				dp[i][j] = j + 1;
-			}
-			else
-			{
-				dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
-			}
+			if (x & (1 << j)) bits[j]++;
 		}
 	}
-	cout << dp[n - 1][9] << "\n";
+	for (int j = 0; j < n; j++)
+	{
+		x = 0;
+		for (int i = 0; i < 20; i++)
+		{
+			if (bits[i] > 0)
+			{
+				x |= (1 << i);
+				bits[i]--;
+			}
+		}
+		ans += x * x;
+	}
+	cout << ans << '\n';
 	return 0;
 }

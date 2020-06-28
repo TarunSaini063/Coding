@@ -29,7 +29,7 @@ ll invmod(ll a) { return power(a, mod - 2); }
 int main(void)
 {
     FIO
-        string s;
+    string s;
     cin >> s;
     int n = s.size();
     n = 2 * n + 1;
@@ -49,18 +49,18 @@ int main(void)
         }
         while (i - l[i] - 1 >= 0 && i + l[i] + 1 <= n && ((i + l[i] + 1) % 2 == 0 || s[(i + l[i] + 1) / 2] == s[(i - l[i] - 1) / 2]))
         {
-            
+
             // cout<<(i + l[i] + 1) <<" "<<(i - l[i] - 1) <<" "<<l[i]<<" "<<i<<" "<<endl;
             l[i]++;
         }
-            
-        if(i+l[i]>r)
+
+        if (i + l[i] > r)
         {
-            r=i+l[i];
-            c=i;
+            r = i + l[i];
+            c = i;
         }
     }
-    for(int i=0;i<n;i++) cout<<l[i]<<" ";
-    cout<<endl;
+    for (int i = 0; i < n; i++) cout << l[i] << " ";
+    cout << endl;
     return 0;
 }

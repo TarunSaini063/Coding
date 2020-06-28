@@ -14,24 +14,19 @@ ll invmod(ll a) {return power(a, mod - 2);}
 int main(void)
 {
 	FIO
-	int n;
-	cin >> n;
-	int dp[n][10];
-	memset(dp, 0, sizeof(dp));
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			if (i == 0 || j == 0)
-			{
-				dp[i][j] = j + 1;
-			}
-			else
-			{
-				dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
-			}
+	int t;
+	cin >> t;
+	while (t--) {
+		int n;
+		ld g, a, b, ans1 = 0, ans2 = 0;
+		cin >> n;
+		vector<ld> arr;
+		for (int i = 0; i < n; i++) {
+			cin >> g >> a >> b;
+			ans1 += g * ((1.0 * b) / (a + b));
+			ans2 += g * ((1.0 * a) / (a + b));
 		}
+		cout << setprecision(6) << fixed << ans1 << " " << ans2 << "\n";
 	}
-	cout << dp[n - 1][9] << "\n";
 	return 0;
 }

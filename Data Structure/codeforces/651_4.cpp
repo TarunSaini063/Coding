@@ -14,24 +14,43 @@ ll invmod(ll a) {return power(a, mod - 2);}
 int main(void)
 {
 	FIO
-	int n;
-	cin >> n;
-	int dp[n][10];
-	memset(dp, 0, sizeof(dp));
-	for (int i = 0; i < n; i++)
+	int n, k;
+	cin >> n >> k;
+	int arr[n];
+	for (auto &i : arr) {
+		cin >> i;
+	}
+	int mn = 0, ans;
+	int mx = *max_element(arr, arr + n);
+	while (mn <= mx)
 	{
-		for (int j = 0; j < 10; j++)
+		int md = mn + (mx - mn) / 2;
+		int find = false;
+		for (int tn : {0, 1})
 		{
-			if (i == 0 || j == 0)
+			int x = tn;
+			int len = 0;
+			for (auto p : arr)
 			{
-				dp[i][j] = j + 1;
+				if (!x || p <= md)
+				{
+					len++;
+					x = !x;
+				}
 			}
-			else
+			if (len >= k)
 			{
-				dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
+				find = true;
 			}
 		}
+		if (find)
+		{
+			ans = md;
+			mx = md - 1;
+		}
+		else mn = md + 1;
 	}
-	cout << dp[n - 1][9] << "\n";
+	cout << ans << '\n';
 	return 0;
+
 }

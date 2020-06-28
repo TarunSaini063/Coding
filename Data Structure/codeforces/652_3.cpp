@@ -14,24 +14,32 @@ ll invmod(ll a) {return power(a, mod - 2);}
 int main(void)
 {
 	FIO
-	int n;
-	cin >> n;
-	int dp[n][10];
-	memset(dp, 0, sizeof(dp));
-	for (int i = 0; i < n; i++)
+	int t;
+	cin >> t;
+	while (t--)
 	{
-		for (int j = 0; j < 10; j++)
-		{
-			if (i == 0 || j == 0)
-			{
-				dp[i][j] = j + 1;
-			}
-			else
-			{
-				dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
+		int n, k;
+		cin >> n >> k;
+		vector<ll> a(n), w(k);
+		for (auto &i : a) cin >> i;
+		for (auto &i : w)cin >> i;
+		sort(all(a));
+		sort(all(w));
+		int i = n - k - 1, j = n - 1;
+		ll ans = 0;
+		for (int l = 0; l < k; l++) {
+			if (w[l] == 1) ans += 2 * a[j--];
+			else {
+				ans += a[j--];
+				w[l]--;
+				while (w[l] > 1) {
+					i--;
+					w[l]--;
+				}
+				ans += a[i--];
 			}
 		}
+		cout << ans << "\n";
 	}
-	cout << dp[n - 1][9] << "\n";
 	return 0;
 }

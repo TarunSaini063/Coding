@@ -14,24 +14,29 @@ ll invmod(ll a) {return power(a, mod - 2);}
 int main(void)
 {
 	FIO
-	int n;
-	cin >> n;
-	int dp[n][10];
-	memset(dp, 0, sizeof(dp));
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			if (i == 0 || j == 0)
-			{
-				dp[i][j] = j + 1;
+	int t;
+	cin >> t;
+	while (t--) {
+		string s;
+		cin >> s;
+		int n = s.size();
+		if (n >= 2) {
+			if (s.substr(n - 2, 2) == "po") {
+				cout << "FILIPINO\n";
+				continue;
 			}
-			else
-			{
-				dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
+		}
+		if (n >= 4) {
+			if (s.substr(n - 4, 4) == "desu" || s.substr(n - 4, 4) == "masu") {
+				cout << "JAPANESE\n";
+				continue;
+			}
+		}
+		if (n >= 5) {
+			if (s.substr(n - 5, 5) == "mnida") {
+				cout << "KOREAN\n";
 			}
 		}
 	}
-	cout << dp[n - 1][9] << "\n";
 	return 0;
 }

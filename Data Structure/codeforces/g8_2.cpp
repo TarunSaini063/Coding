@@ -14,24 +14,24 @@ ll invmod(ll a) {return power(a, mod - 2);}
 int main(void)
 {
 	FIO
-	int n;
-	cin >> n;
-	int dp[n][10];
-	memset(dp, 0, sizeof(dp));
-	for (int i = 0; i < n; i++)
+	int t = 1;
+	while (t--)
 	{
-		for (int j = 0; j < 10; j++)
+		ll K, cnt[10] = {0};
+		cin >> K;
+		string s = "codeforces";
+		for (int i = 0;; i++)
 		{
-			if (i == 0 || j == 0)
-			{
-				dp[i][j] = j + 1;
-			}
-			else
-			{
-				dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
-			}
+			long long now = 1;
+			for (int j = 0; j < 10; j++)now *= cnt[j];
+			if (now >= K)break;
+			cnt[i % 10]++;
 		}
+		for (int i = 0; i < 10; i++)
+		{
+			for (int j = 0; j < cnt[i]; j++)cout << s[i];
+		}
+		cout << "\n";
 	}
-	cout << dp[n - 1][9] << "\n";
 	return 0;
 }

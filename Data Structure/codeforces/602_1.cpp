@@ -11,27 +11,36 @@ using namespace std;
 #define all(x) x.begin(),x.end()
 ll power(ll a, ll b) {ll res = 1; a = a % mod; while (b) {if (b & 1)res = (res * a) % mod; a = (a * a) % mod; b /= 2;} return res;}
 ll invmod(ll a) {return power(a, mod - 2);}
+bool ov(int i, int j, int k, int l)
+{
+	if (i > l || j < k) return false;
+	return true;
+}
+bool cmp(const pair<int, int>p1, const pair<int, int> p2)
+{
+	if (p1.ff != p2.ff) return p1.ff < p2.ff;
+	return p1.ss <= p2.ss;
+}
 int main(void)
 {
 	FIO
-	int n;
-	cin >> n;
-	int dp[n][10];
-	memset(dp, 0, sizeof(dp));
-	for (int i = 0; i < n; i++)
+	int t;
+	cin >> t;
+	while (t--)
 	{
-		for (int j = 0; j < 10; j++)
+		ll n, x, y;
+		ll mn = INT_MAX	, mx = INT_MIN;
+		cin >> n;
+		for (ll i = 0; i < n; i++)
 		{
-			if (i == 0 || j == 0)
-			{
-				dp[i][j] = j + 1;
-			}
-			else
-			{
-				dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
-			}
+			cin >> x >> y;
+			mn = min(mn, y);
+			mx = max(mx, x);
 		}
+		mx -= mn;
+		if (mx < 0) mx = 0;
+		cout << mx << '\n';
+
 	}
-	cout << dp[n - 1][9] << "\n";
 	return 0;
 }

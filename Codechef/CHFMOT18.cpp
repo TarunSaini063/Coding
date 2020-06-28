@@ -14,24 +14,26 @@ ll invmod(ll a) {return power(a, mod - 2);}
 int main(void)
 {
 	FIO
-	int n;
-	cin >> n;
-	int dp[n][10];
-	memset(dp, 0, sizeof(dp));
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			if (i == 0 || j == 0)
-			{
-				dp[i][j] = j + 1;
+	int t;
+	cin >> t;
+	while (t--) {
+		ll s, n;
+		cin >> s >> n;
+		ll mx = n;
+		if (n % 2 == 1) mx--;
+		if (s <= mx) {
+			if (s % 2 == 0 || s == 1) cout << "1\n";
+			else cout << "2\n";
+		}
+		else {
+			ll ans = s / mx;
+			s -= ans * mx;
+			if (s != 0) {
+				if (s % 2 == 0 || s == 1) ans += 1;
+				else ans += 2;
 			}
-			else
-			{
-				dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
-			}
+			cout << ans << "\n";
 		}
 	}
-	cout << dp[n - 1][9] << "\n";
 	return 0;
 }

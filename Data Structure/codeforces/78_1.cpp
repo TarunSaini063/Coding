@@ -14,24 +14,30 @@ ll invmod(ll a) {return power(a, mod - 2);}
 int main(void)
 {
 	FIO
-	int n;
-	cin >> n;
-	int dp[n][10];
-	memset(dp, 0, sizeof(dp));
-	for (int i = 0; i < n; i++)
+	int t;
+	cin >> t;
+	while (t--)
 	{
-		for (int j = 0; j < 10; j++)
-		{
-			if (i == 0 || j == 0)
-			{
-				dp[i][j] = j + 1;
+		string s1, s2;
+		cin >> s1 >> s2;
+		multiset<char> st1, st2;
+		int n = s1.size(), fl = 0;
+		for (auto i : s1) st1.insert(i);
+		for (int i = 0; i < n; i++) st2.insert(s2[i]);
+		if (st1 == st2) {
+			fl = 1;
+		} else
+			for (int i = n; i < (int)s2.size(); i++) {
+				st2.erase(st2.find(s2[i - n]));
+				st2.insert(s2[i]);
+				if (st1 == st2) {
+					fl = 1;
+					break;
+				}
 			}
-			else
-			{
-				dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
-			}
-		}
+		if (fl) cout << "YES\n";
+		else cout << "NO\n";
+
 	}
-	cout << dp[n - 1][9] << "\n";
 	return 0;
 }
