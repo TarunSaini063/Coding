@@ -7,46 +7,56 @@ using namespace std;
 #define mod 1000000007
 #define ff first
 #define ss second
+#define sz(x) (int)x.size()
 #define FIO ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 #define all(x) x.begin(),x.end()
 ll power(ll a, ll b) {ll res = 1; a = a % mod; while (b) {if (b & 1)res = (res * a) % mod; a = (a * a) % mod; b /= 2;} return res;}
 ll invmod(ll a) {return power(a, mod - 2);}
+struct egde {
+	int to, from, wt;
+};
 int main(void)
 {
 	FIO
-	int n, v, a, b, w, s;
-	cin >> n >> v;
-	vector<pair<pair<int, int>, int>>adj;
-	vector<int> dis(n, INT_MAX);
-	for (int i = 0; i < v; i++)
+	int t = 1;
+	// cin >> t;
+	while (t--)
 	{
-		cin >> a >> b >> w;
-		adj.pb(mk(mk(a, b), w));
-	}
-	cin >> s;
-	dis[s] = 0;
-	for (int i = 0; i < n - 1; i++)
-	{
-		for (int j = 0; j < v; j++)
-		{
-			a = adj[j].ff.ff;
-			b = adj[j].ff.ss;
-			w = adj[j].ss;
-			if (dis[a] != INT_MAX && dis[a] + w < dis[b])
-				dis[b] = dis[a] + w;
+		int n, m, a, b, c, s, x;
+		cin >> n >> m;
+		int inf = 1e9;
+		vector<int> dis(n + 1, inf), par(n + 1);
+		vector<egde>adj(m);
+		for (int i = 0; i < m; i++) {
+			cin >> a >> b >> c;
+			adj[i].to = a;
+			adj[i].from = b;
+			adj[i].wt = c;
 		}
-	}
-	for (int i = 0; i < n; i++) cout << i << ' ' << dis[i] << '\n';
-	for (int j = 0; j < v; j++)
-	{
-		a = adj[j].ff.ff;
-		b = adj[j].ff.ss;
-		w = adj[j].ss;
-		if (dis[a] != INT_MAX && dis[a] + w < dis[b])
-		{
-			cout << "Contain -ive cycle\n";
-			break;
+		cin >> s;
+		dis[s] = 0;
+		for (int i = 1; i <= n; i++) {
+			x = -1;
+			int fin = 0;
+			for (int j = 0; j <= m - 1; j++) {
+				if (dis[adj[j].from] < inf) {
+					if (dis[adj[j].to] > dis[adj[j].from] + adj[j].wt) {
+						dis[adj[j].to] = dis[adj[j].from] + adj[j].wt;
+						x = adj[j].to;
+						par[adj[j].to] = adj[j].from;
+						fin = 1;
+					}
+				}
+			}
+			if (fin == 0) break;
 		}
+		vector<int> path;
+		path.pb(x);
+		for (int i = par[x]; i != x; i = par[i]) path.pb(i);
+		reverse(all(path));
+		for (int i : path) cout << i << " ";
+		cout << "\n";
+
 	}
 	return 0;
 }
