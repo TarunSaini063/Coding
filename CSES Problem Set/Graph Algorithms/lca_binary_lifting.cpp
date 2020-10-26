@@ -66,12 +66,16 @@ int main(void)
 				}
 			}
 		}
+		for (int i = 1, j = 0; i <= n; i++, j = 0) {
+			while (dp[i][j] != -1) cout << dp[i][j++] << " ";
+			cout << '\n';
+		}
 		int q = 0;
 		cin >> q;
 		while (q--) {
 			int a, b;
 			cin >> a >> b;
-			cout << query(a, b) << '\n';
+			// cout << query(a, b) << '\n';
 		}
 	}
 	return 0;
