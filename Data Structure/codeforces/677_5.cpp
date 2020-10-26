@@ -13,6 +13,13 @@ using namespace std;
 #define all(x) x.begin(),x.end()
 ll power(ll a, ll b) {ll res = 1; a = a % mod; while (b) {if (b & 1)res = (res * a) % mod; a = (a * a) % mod; b /= 2;} return res;}
 ll invmod(ll a) {return power(a, mod - 2);}
+ll fact(ll n)
+{
+	ll res = 1;
+	for (ll i = 2; i <= n; i++)
+		res = res * i;
+	return res;
+}
 int main(void)
 {
 	FIO
@@ -20,14 +27,11 @@ int main(void)
 	// cin >> t;
 	while (t--)
 	{
-		string s;
-		cin >> s;
-		set<char> st;
-		for (char c : s) {
-			st.insert(c);
-		}
-		if (sz(st) % 2 == 0) cout << "CHAT WITH HER!\n";
-		else cout << "IGNORE HIM!\n";
+		int n;
+		cin >> n;
+		ll ans = 2 * fact(n - 1) / n;
+		cout << ans << '\n';
+
 	}
 	return 0;
 }

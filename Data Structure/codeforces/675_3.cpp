@@ -20,14 +20,22 @@ int main(void)
 	// cin >> t;
 	while (t--)
 	{
-		string s;
-		cin >> s;
-		set<char> st;
-		for (char c : s) {
-			st.insert(c);
+		string a;
+		cin >> a;
+		int n = sz(a);
+		ll pw = 1;
+		ll sum = 0;
+		ll ans = 0;
+		ll ret = 0;
+		for (int i = n - 1; i >= 0; i--)
+		{
+			ret = (10ll * ret + sum) % mod;
+			ans = (ans + ret * (a[i] - '0')) % mod;
+			ans = (ans + ((((ll)i * (i + 1) / 2) % mod) * (pw * (a[i] - '0'))) % mod) % mod;
+			sum = (sum + pw) % mod;
+			pw = (pw * 10) % mod;
 		}
-		if (sz(st) % 2 == 0) cout << "CHAT WITH HER!\n";
-		else cout << "IGNORE HIM!\n";
+		cout << ans << "\n";
 	}
 	return 0;
 }

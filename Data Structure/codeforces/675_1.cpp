@@ -16,18 +16,16 @@ ll invmod(ll a) {return power(a, mod - 2);}
 int main(void)
 {
 	FIO
-	int t = 1;
-	// cin >> t;
+	int t;
+	cin >> t;
 	while (t--)
 	{
-		string s;
-		cin >> s;
-		set<char> st;
-		for (char c : s) {
-			st.insert(c);
+		int  arr[3];
+		for (int i = 0; i < 3; i++) {
+			cin >> arr[i];
 		}
-		if (sz(st) % 2 == 0) cout << "CHAT WITH HER!\n";
-		else cout << "IGNORE HIM!\n";
+		sort(arr, arr + 3);
+		cout << arr[2] + arr[1] << "\n";
 	}
 	return 0;
 }

@@ -20,14 +20,23 @@ int main(void)
 	// cin >> t;
 	while (t--)
 	{
-		string s;
-		cin >> s;
-		set<char> st;
-		for (char c : s) {
-			st.insert(c);
+		int n;
+		cin >> n;
+		ll arr[n], sum = 0, tot = 0;
+		for (ll &i : arr) cin >> i;
+		map<ll, ll> mp;
+		mp[0]++;
+		for (int i = 0; i < n; i++) {
+			sum += arr[i];
+			if (mp[sum] > 0) {
+				tot++;
+				sum = arr[i];
+				mp.clear();
+				mp[0] = 1;
+			}
+			mp[sum] = 1;
 		}
-		if (sz(st) % 2 == 0) cout << "CHAT WITH HER!\n";
-		else cout << "IGNORE HIM!\n";
+		cout << tot  <<  "\n";
 	}
 	return 0;
 }

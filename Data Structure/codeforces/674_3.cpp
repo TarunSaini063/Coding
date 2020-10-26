@@ -16,18 +16,22 @@ ll invmod(ll a) {return power(a, mod - 2);}
 int main(void)
 {
 	FIO
-	int t = 1;
-	// cin >> t;
+	int t, cnt = 2;
+	cin >> t;
+	int arr[63250];
+	arr[0] = 1;
+	arr[1] = 2;
+	for (int i = 2; i < 63244; i += 2) {
+		arr[i] = cnt * cnt;
+		arr[i + 1] = cnt * (cnt + 1);
+		cnt++;
+	}
 	while (t--)
 	{
-		string s;
-		cin >> s;
-		set<char> st;
-		for (char c : s) {
-			st.insert(c);
-		}
-		if (sz(st) % 2 == 0) cout << "CHAT WITH HER!\n";
-		else cout << "IGNORE HIM!\n";
+		int n;
+		cin >> n;
+		int ans = lower_bound(arr, arr + 63244, n) - arr;
+		cout << ans << "\n";
 	}
 	return 0;
 }

@@ -16,18 +16,28 @@ ll invmod(ll a) {return power(a, mod - 2);}
 int main(void)
 {
 	FIO
-	int t = 1;
-	// cin >> t;
+	int t;
+	cin >> t;
 	while (t--)
 	{
-		string s;
-		cin >> s;
-		set<char> st;
-		for (char c : s) {
-			st.insert(c);
+		int n, T, cnt = 0;
+		cin >> n >> T;
+		vector<int> arr(n);
+		for (int i = 0; i < n; i++) {
+			cin >> arr[i];
+			if (arr[i] * 2 == T) cnt++;
 		}
-		if (sz(st) % 2 == 0) cout << "CHAT WITH HER!\n";
-		else cout << "IGNORE HIM!\n";
+		int fl = 0, tot = 0;
+		for (int i = 0; i < n; i++) {
+			if (arr[i] > T / 2) cout << "1 ";
+			else if (arr[i] < T / 2) cout << "0 ";
+			else {
+				tot++;
+				if (tot <= cnt / 2) cout << "1 ";
+				else cout << "0 ";
+			}
+		}
+		cout << "\n";
 	}
 	return 0;
 }

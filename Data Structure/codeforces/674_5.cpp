@@ -20,14 +20,27 @@ int main(void)
 	// cin >> t;
 	while (t--)
 	{
-		string s;
-		cin >> s;
-		set<char> st;
-		for (char c : s) {
-			st.insert(c);
-		}
-		if (sz(st) % 2 == 0) cout << "CHAT WITH HER!\n";
-		else cout << "IGNORE HIM!\n";
+		int n;
+		cin >> n;
+		int a[3], b[3];
+		cin >> a[0] >> a[2] >> a[1];
+		cin >> b[0] >> b[2] >> b[1];
+		int mx = min(a[0], b[2]) + min(a[1], b[0]) + min(a[2], b[1]);
+		int mn;
+		mn = min(a[0], b[1]);
+		a[0] -= mn;
+		mn = min(a[0], b[0]);
+		a[0] -= mn;
+		mn = min(a[1], b[2]);
+		a[1] -= mn;
+		mn = min(a[1], b[1]);
+		a[1] -= mn;
+		mn = min(a[2], b[0]);
+		a[2] -= mn;
+		mn = min(a[2], b[2]);
+		a[2] -= mn;
+		mn = min(a[0], b[2]) + min(a[1], b[0]) + min(a[2], b[1]);
+		cout << mn << " " << mx << "\n";
 	}
 	return 0;
 }
