@@ -13,30 +13,43 @@ using namespace std;
 #define all(x) x.begin(),x.end()
 ll power(ll a, ll b) {ll res = 1; a = a % mod; while (b) {if (b & 1)res = (res * a) % mod; a = (a * a) % mod; b /= 2;} return res;}
 ll invmod(ll a) {return power(a, mod - 2);}
+const int mxn = 1e5 + 1;
+int prime[mxn];
 int main(void)
 {
 	FIO
 	int t;
+	vector<int> tot;
+	prime[1] = 0;
+	memset(prime, 0, sizeof(prime));
+	for (int i = 2; i < mxn; i++) {
+		if (prime[i] == 0) {
+			tot.pb(i);
+			for (int j = 2 * i; j < mxn; j += i) prime[j] = 1;
+		}
+	}
+	int mynum = tot.back();
 	cin >> t;
 	while (t--)
 	{
-		int p, f, cnts, cntw, s, w;
-		cin >> p >> f >> cnts >> cntw >> s >> w;
-		if (cnts > cntw) {
-			swap(cntw, cnts);
-			swap(s, w);
+		int n;
+		cin >> n;
+		int tmp = 1;
+		vector<int> arr;
+		int dig = mynum;
+		arr.pb(1);
+		dig = mynum - 1;
+		while (tmp < n - 1) {
+			arr.pb(4);
+			tmp++;
+			dig -= 4;
 		}
-		int ans = 0;
-		for (int sword = 0; sword <= min(p / s, cnts); sword++) {
-			int pax = min((p - sword * s) / w, cntw);
-			int fax = min(cntw - pax, f / w);
-			int fsw = min(cnts - sword, (f - fax * w) / s);
-			ans = max(ans, sword + pax + fsw + fax);
-			fsw = min(cnts - sword, f / s);
-			fax = min(cntw - pax, (f - fsw * s) / w);
-			ans = max(ans, sword + pax + fsw + fax);
+		arr.pb(dig);
+		int x = sz(arr);
+		for (int i = 0; i < n; i++) {
+			for (int j = i, len = 0; len < n; len++, j++) cout << arr[j % x] << ' ';
+			cout << '\n';
 		}
-		cout << ans << '\n';
 	}
 	return 0;
 }

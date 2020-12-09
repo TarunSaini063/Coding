@@ -20,23 +20,33 @@ int main(void)
 	cin >> t;
 	while (t--)
 	{
-		int p, f, cnts, cntw, s, w;
-		cin >> p >> f >> cnts >> cntw >> s >> w;
-		if (cnts > cntw) {
-			swap(cntw, cnts);
-			swap(s, w);
+		int n, x;
+		cin >> n >> x;
+		vector<ar<int, 2>>arr;
+		for (int i = 0; i < n; i++) {
+			int d, h;
+			cin >> d >> h;
+			arr.pb({d, h});
 		}
-		int ans = 0;
-		for (int sword = 0; sword <= min(p / s, cnts); sword++) {
-			int pax = min((p - sword * s) / w, cntw);
-			int fax = min(cntw - pax, f / w);
-			int fsw = min(cnts - sword, (f - fax * w) / s);
-			ans = max(ans, sword + pax + fsw + fax);
-			fsw = min(cnts - sword, f / s);
-			fax = min(cntw - pax, (f - fsw * s) / w);
-			ans = max(ans, sword + pax + fsw + fax);
+		int diff = -1, tmp = -1;
+		for (auto i : arr) {
+			diff = max(diff, i[0] - i[1]);
+			tmp = max(tmp, i[0]);
 		}
-		cout << ans << '\n';
+		if (x <= tmp) {
+			cout << "1\n";
+			continue;
+		}
+		if (diff <= 0) {
+			cout << "-1\n";
+			continue;
+		}
+		else {
+			int req = x - tmp;
+			int cnt = (req + diff - 1 ) / diff + 1;
+			cout << cnt << '\n';
+			// cout << cnt << " " << tmp << " " << diff << " " << req << '\n';
+		}
 	}
 	return 0;
 }

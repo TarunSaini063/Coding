@@ -2,25 +2,35 @@
 using namespace std;
 #define ld double
 #define ll long long
-#define pb emplace_back
+#define pb push_back
 #define mk make_pair
 #define mod 1000000007
 #define ff first
 #define ss second
 #define sz(x) (int)x.size()
+#define ar array
 #define FIO ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 #define all(x) x.begin(),x.end()
 ll power(ll a, ll b) {ll res = 1; a = a % mod; while (b) {if (b & 1)res = (res * a) % mod; a = (a * a) % mod; b /= 2;} return res;}
 ll invmod(ll a) {return power(a, mod - 2);}
-ll n, arr[21];
-ll wt(ll mask) {
-	ll sum = 0;
-	for (int i = 0; i < n; i++) {
-		if ((mask & (1ll << i)) != 0) sum += arr[i];
+const int mxn = 5e4 + 1;
+vector<int> adj[mxn];
+ll dp[mxn][510], k, n, tp = 0;
+void dfs(int v, int p)
+{
+	dp[v][0] = 1;
+	for (int u : adj[v]) {
+		if (u != p) {
+			dfs(u, v);
+			for (int x = 0; x <= k; x++) {
+				tp += dp[v][x] * dp[u][k - x - 1];
+			}
+			for (int x = 0; x <= k; x++) {
+				dp[v][x + 1] += dp[u][x];
+			}
+		}
 	}
-	return sum;
 }
-
 int main(void)
 {
 	FIO
@@ -28,15 +38,15 @@ int main(void)
 	// cin >> t;
 	while (t--)
 	{
-		cin >> n;
-		ll tot = 0, ans = 1e18;
-		for (int i = 0; i < n; i++) cin >> arr[i], tot += arr[i];
-		for (ll mask = 0; mask < (1ll << n); mask++) {
-			ll right = wt(mask);
-			ll left = tot - right;
-			ans = min(ans, abs(left - right));
+		cin >> n >> k;
+		for (int i = 0; i < n - 1; i++) {
+			ll a, b;
+			cin >> a >> b;
+			adj[a].pb(b);
+			adj[b].pb(a);
 		}
-		cout << ans << "\n";
+		dfs(1, -1);
+		cout << tp << "\n";
 	}
 	return 0;
 }
