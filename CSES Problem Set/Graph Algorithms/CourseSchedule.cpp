@@ -22,7 +22,7 @@ void dfs(int id) {
 		if (vis[i] == 1) {
 			cout << "IMPOSSIBLE\n";
 			exit(0);
-		}
+		} 
 		if (vis[i] == 0)
 			dfs(i);
 	}
